@@ -60,7 +60,7 @@ export function GrindScoreCard({ data }: GrindScoreCardProps) {
 
   return (
     <div
-      className="card"
+      className="card-glow p-6"
       style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}
     >
       {/* Card header */}

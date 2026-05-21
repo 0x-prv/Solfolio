@@ -17,8 +17,9 @@ export default function HomePage() {
         {/* Footer */}
         <footer
           style={{
-            borderTop: "1px solid var(--color-border)",
-            padding: "40px 0",
+            borderTop: "1px solid var(--border)",
+            background: "var(--bg-secondary)",
+            padding: "40px 24px",
             marginTop: "80px",
           }}
         >
@@ -34,6 +35,7 @@ export default function HomePage() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <img src="/solfoliologo.png" alt="Solfolio Logo" style={{ width: "120px", height: "auto" }} />
               <div
                 style={{
                   width: "24px",
@@ -62,13 +64,13 @@ export default function HomePage() {
             </div>
 
             <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)" }}>
-              Built on Solana · Powered by AI · Open Source
+              Built on Solana · Powered by AI
             </p>
 
-            <div style={{ display: "flex", gap: "20px" }}>
-              <a href="https://github.com" style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", textDecoration: "none" }}>GitHub</a>
-              <a href="https://twitter.com" style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", textDecoration: "none" }}>Twitter</a>
-              <a href="https://discord.com" style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", textDecoration: "none" }}>Discord</a>
+            <div style={{ display: "flex", gap: "24px" }}>
+              <a href="https://github.com" style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)", textDecoration: "none", transition: "color 0.2s ease" }}>GitHub</a>
+              <a href="https://twitter.com" style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)", textDecoration: "none", transition: "color 0.2s ease" }}>Twitter</a>
+              <a href="https://discord.com" style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)", textDecoration: "none", transition: "color 0.2s ease" }}>Discord</a>
             </div>
           </div>
         </footer>

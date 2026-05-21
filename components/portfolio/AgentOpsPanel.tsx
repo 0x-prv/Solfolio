@@ -14,7 +14,7 @@ export function AgentOpsPanel({ report, loading }: AgentOpsPanelProps) {
         <p style={{ color: "var(--color-text-muted)", fontSize: "12px", marginTop: 6 }}>Real-time portfolio risk intelligence and execution queue.</p>
       </header>
       <div className="p-6 space-y-4">
-        {loading ? <div className="skeleton" style={{ height: 220 }} /> : (
+        {loading ? <div className="skeleton animate-pulse" style={{ height: 220 }} /> : (
           <>
             <div className="grid grid-cols-2 gap-3">
               <div className="card p-3"><p className="text-xs text-gray-400">Risk Score</p><p className="stat-value">{report.riskScore}</p></div>

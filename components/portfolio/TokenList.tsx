@@ -36,7 +36,7 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
   const total = allTokens.reduce((s, t) => s + t.usdValue, 0);
 
   return (
-    <div className="card" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+    <div className="card-glow p-6" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
       {/* Header */}
       <div
         style={{
@@ -75,14 +75,14 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div className="skeleton" style={{ width: 38, height: 38, borderRadius: "var(--radius-full)", flexShrink: 0 }} />
+              <div className="skeleton animate-pulse" style={{ width: 38, height: 38, borderRadius: "var(--radius-full)", flexShrink: 0 }} />
               <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "7px" }}>
-                <div className="skeleton" style={{ height: 11, width: "35%" }} />
-                <div className="skeleton" style={{ height: 9, width: "55%" }} />
+                <div className="skeleton animate-pulse" style={{ height: 11, width: "35%" }} />
+                <div className="skeleton animate-pulse" style={{ height: 9, width: "55%" }} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "7px", alignItems: "flex-end" }}>
-                <div className="skeleton" style={{ height: 11, width: 56 }} />
-                <div className="skeleton" style={{ height: 9, width: 40 }} />
+                <div className="skeleton animate-pulse" style={{ height: 11, width: 56 }} />
+                <div className="skeleton animate-pulse" style={{ height: 9, width: 40 }} />
               </div>
             </div>
           ))
@@ -164,7 +164,7 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
                       style={{
                         flex: 1,
                         height: "3px",
-                        background: "var(--color-overlay)",
+                        background: "rgba(124,58,237,0.1)",
                         borderRadius: "var(--radius-full)",
                         maxWidth: "96px",
                         overflow: "hidden",

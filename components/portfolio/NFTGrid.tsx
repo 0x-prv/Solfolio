@@ -31,7 +31,7 @@ interface NFTGridProps {
 
 export function NFTGrid({ loading }: NFTGridProps) {
   return (
-    <div className="card" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+    <div className="card-glow p-6" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
       {/* Header */}
       <div
         style={{
@@ -67,7 +67,7 @@ export function NFTGrid({ loading }: NFTGridProps) {
           ? Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="skeleton"
+                className="skeleton animate-pulse"
                 style={{ aspectRatio: "1", borderRadius: "var(--radius-md)" }}
               />
             ))
@@ -77,7 +77,7 @@ export function NFTGrid({ loading }: NFTGridProps) {
                 style={{
                   borderRadius: "var(--radius-md)",
                   overflow: "hidden",
-                  background: "var(--color-overlay)",
+                  background: "rgba(124,58,237,0.1)",
                   border: "1px solid var(--color-border)",
                   cursor: "pointer",
                   transition: "border-color var(--transition-base), box-shadow var(--transition-base)",

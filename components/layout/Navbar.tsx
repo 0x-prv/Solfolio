@@ -21,8 +21,8 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-4 mt-4 rounded-2xl px-6 py-3.5 flex items-center justify-between glass" style={{ borderRadius: "var(--radius-xl)" }}>
+    <header className="fixed top-0 left-0 right-0 z-50" style={{ background: "var(--bg-primary)" }}>
+      <div className="px-6 py-4 flex items-center justify-between" style={{ background: "var(--bg-primary)", border: "none" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
             <Image
@@ -35,6 +35,7 @@ export function Navbar() {
                 width: "180px",
                 height: "auto",
                 objectFit: "contain",
+                filter: "drop-shadow(0 0 8px rgba(124,58,237,0.4))",
               }}
             />
           </Link>
@@ -45,14 +46,14 @@ export function Navbar() {
               <span style={{ fontSize: "var(--text-xs)", fontFamily: "monospace", color: "var(--color-brand)" }}>
                 {shortenAddress(publicKey.toBase58())}
               </span>
-              <button onClick={disconnect} style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", background: "none", border: "none", cursor: "pointer", padding: "0", marginLeft: "4px" }}>✕</button>
+              <button className="btn-primary" onClick={disconnect} style={{ fontSize: "var(--text-xs)", color: "var(--text-primary)", padding: "6px 12px", marginLeft: "4px" }}>✕</button>
             </div>
           )}
         </div>
 
         <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} style={{ padding: "6px 14px", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontWeight: 500, textDecoration: "none", color: pathname === link.href ? "hsl(173, 70%, 58%)" : "var(--color-text-secondary)", background: pathname === link.href ? "var(--color-brand-light)" : "transparent", border: `1px solid ${pathname === link.href ? "var(--color-border-brand)" : "transparent"}` }}>
+            <Link key={link.href} href={link.href} style={{ padding: "6px 14px", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontWeight: 500, textDecoration: "none", color: pathname === link.href ? "var(--text-primary)" : "var(--text-muted)", background: pathname === link.href ? "var(--color-brand-light)" : "transparent", border: `1px solid ${pathname === link.href ? "var(--color-border-brand)" : "transparent"}` }}>
               {link.label}
             </Link>
           ))}
@@ -66,9 +67,9 @@ export function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="mx-4 mt-2 p-3 glass" style={{ borderRadius: "var(--radius-lg)" }}>
+        <div className="mx-4 mt-2 p-3" style={{ borderRadius: "var(--radius-lg)" }}>
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontWeight: 500, textDecoration: "none", color: pathname === link.href ? "hsl(173, 70%, 58%)" : "var(--color-text-secondary)", background: pathname === link.href ? "var(--color-brand-light)" : "transparent" }}>
+            <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontWeight: 500, textDecoration: "none", color: pathname === link.href ? "var(--text-primary)" : "var(--text-muted)", background: pathname === link.href ? "var(--color-brand-light)" : "transparent" }}>
               {link.label}
             </Link>
           ))}
