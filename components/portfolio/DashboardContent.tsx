@@ -238,7 +238,7 @@ export function DashboardContent() {
               style={{
                 color: "var(--color-text-muted)",
                 fontSize: "var(--text-xs)",
-                fontFamily: "monospace",
+                fontFamily: "'JetBrains Mono', monospace",
               }}
             >
               {publicKey ? shortenAddress(publicKey.toBase58(), 6) : ""}
@@ -314,7 +314,7 @@ export function DashboardContent() {
         {statCards.map((stat) => (
           <div
             key={stat.label}
-            className="card"
+            className="card-glow p-6"
             style={{
               padding: "20px",
               borderColor: stat.highlight ? "var(--color-border-brand)" : "var(--color-border)",
@@ -341,7 +341,7 @@ export function DashboardContent() {
               </div>
             </div>
             {loading ? (
-              <div className="skeleton" style={{height:28,width:"70%"}} />
+              <div className="skeleton animate-pulse" style={{height:28,width:"70%"}} />
             ) : (
               <p
                 style={{
@@ -355,7 +355,7 @@ export function DashboardContent() {
                 {stat.value ?? ""}
               </p>
             )}
-            {loading ? <div className="skeleton" style={{height:12,width:"45%",marginTop:8}} /> : stat.sub && (
+            {loading ? <div className="skeleton animate-pulse" style={{height:12,width:"45%",marginTop:8}} /> : stat.sub && (
               <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", marginTop: "3px" }}>
                 {stat.sub}
               </p>

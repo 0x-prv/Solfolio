@@ -88,7 +88,7 @@ export function HeroSection() {
   }, [displayed, typing, wordIdx]);
 
   return (
-    <section className="min-h-screen flex items-center pt-24 pb-16" style={{ position: "relative", overflow: "hidden" }}>
+    <section className="hero-bg relative min-h-screen flex items-center justify-center text-center pt-24 pb-16 z-[1]" style={{ position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "-20%", left: "50%", transform: "translateX(-50%)", width: "800px", height: "600px", background: "radial-gradient(ellipse, rgba(20,184,166,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
 
       <div className="max-w-7xl mx-auto px-6 w-full">
@@ -99,7 +99,7 @@ export function HeroSection() {
               <span className="tag-accent"><CpuIcon />AI-Powered</span>
             </div>
 
-            <h1 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2.4rem, 6vw, 4rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--color-text-primary)" }}>
+            <h1 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(3.5rem, 8vw, 4.5rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text-primary)" }}>
               Your On-Chain <br />
               <span className="gradient-text">
                 {displayed}
@@ -107,11 +107,11 @@ export function HeroSection() {
               </span>
             </h1>
 
-            <p style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-md)", lineHeight: 1.7, maxWidth: "440px" }}>
+            <p style={{ color: "var(--text-muted)", fontSize: "1.125rem", lineHeight: 1.7, maxWidth: "560px", margin: "16px auto 0" }}>
               Connect your Solana wallet and instantly see your token holdings, NFTs, DeFi positions, and AI-powered reputation score — all in one sleek dashboard.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
               {connected ? (
                 <button className="btn-primary" onClick={() => router.push("/dashboard")}>
                   Go to Dashboard →
@@ -122,14 +122,14 @@ export function HeroSection() {
               <button className="btn-ghost"><PlayIcon />See Demo</button>
             </div>
 
-            <div className="flex items-center gap-6 pt-2" style={{ borderTop: "1px solid var(--color-border)", paddingTop: "24px" }}>
+            <div className="flex items-center justify-center gap-6 mt-6">
               {[
                 { label: "Wallets Tracked", value: "12K+" },
                 { label: "NFTs Indexed", value: "890K+" },
                 { label: "AI Analyses", value: "45K+" },
               ].map((stat) => (
                 <div key={stat.label} style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                  <p style={{ fontFamily: "var(--font-syne)", fontWeight: 700, fontSize: "var(--text-lg)", color: "var(--color-text-primary)", letterSpacing: "-0.02em" }}>{stat.value}</p>
+                  <p style={{ fontFamily: "var(--font-syne)", fontWeight: 700, fontSize: "var(--text-lg)", color: "var(--text-primary)", letterSpacing: "-0.02em" }}>{stat.value}</p>
                   <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)" }}>{stat.label}</p>
                 </div>
               ))}
@@ -144,7 +144,7 @@ export function HeroSection() {
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "var(--radius-full)", background: "linear-gradient(135deg, var(--color-brand), hsl(210, 80%, 60%))", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-syne)", fontWeight: 700, fontSize: "var(--text-sm)", color: "hsl(230, 40%, 6%)" }}>GM</div>
                     <div>
-                      <p style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--color-text-primary)" }}>gm.sol</p>
+                      <p style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--text-primary)" }}>gm.sol</p>
                       <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", fontFamily: "monospace" }}>8xK3...f9Qm</p>
                     </div>
                   </div>
@@ -153,7 +153,7 @@ export function HeroSection() {
 
                 <div style={{ background: "var(--color-overlay)", border: "1px solid var(--color-border-brand)", borderRadius: "var(--radius-md)", padding: "20px", textAlign: "center", marginBottom: "16px" }}>
                   <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", marginBottom: "4px" }}>Total Portfolio Value</p>
-                  <p style={{ fontFamily: "var(--font-syne)", fontSize: "var(--text-3xl)", fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.03em" }}>$24,830</p>
+                  <p style={{ fontFamily: "var(--font-syne)", fontSize: "var(--text-3xl)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.03em" }}>$24,830</p>
                   <p style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", color: "var(--color-success)", fontSize: "var(--text-sm)", marginTop: "4px" }}>
                     <TrendUpIcon />+12.4% this week
                   </p>

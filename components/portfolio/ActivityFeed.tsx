@@ -64,7 +64,7 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
   };
 
   return (
-    <div className="card" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
+    <div className="card-glow p-6" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
       {/* Header */}
       <div
         style={{
@@ -101,12 +101,12 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div className="skeleton" style={{ width: 32, height: 32, flexShrink: 0 }} />
+              <div className="skeleton animate-pulse" style={{ width: 32, height: 32, flexShrink: 0 }} />
               <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "6px" }}>
-                <div className="skeleton" style={{ height: 11, width: "40%" }} />
-                <div className="skeleton" style={{ height: 9, width: "28%" }} />
+                <div className="skeleton animate-pulse" style={{ height: 11, width: "40%" }} />
+                <div className="skeleton animate-pulse" style={{ height: 9, width: "28%" }} />
               </div>
-              <div className="skeleton" style={{ height: 9, width: 48 }} />
+              <div className="skeleton animate-pulse" style={{ height: 9, width: 48 }} />
             </div>
           ))
         ) : transactions.length === 0 ? (
@@ -165,7 +165,7 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
                     style={{
                       color: "var(--color-text-muted)",
                       fontSize: "var(--text-xs)",
-                      fontFamily: "monospace",
+                      fontFamily: "'JetBrains Mono', monospace",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",

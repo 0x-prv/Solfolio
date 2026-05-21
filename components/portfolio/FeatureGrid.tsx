@@ -103,7 +103,7 @@ const features = [
 
 export function FeatureGrid() {
   return (
-    <section style={{ padding: "80px 0" }}>
+    <section className="py-24 px-6" style={{ background: "var(--bg-primary)" }}>
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Section header */}
@@ -114,10 +114,10 @@ export function FeatureGrid() {
           <h2
             style={{
               fontFamily: "var(--font-syne)",
-              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
+              fontSize: "clamp(2rem, 4vw, 2.6rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
+              color: "var(--text-primary)",
               marginTop: "12px",
               marginBottom: "12px",
             }}
@@ -125,19 +125,19 @@ export function FeatureGrid() {
             Everything about your{" "}
             <span className="gradient-text">on-chain life</span>
           </h2>
-          <p style={{ color: "var(--color-text-secondary)", maxWidth: "420px", margin: "0 auto", fontSize: "var(--text-base)", lineHeight: 1.6 }}>
+          <p style={{ color: "var(--text-muted)", maxWidth: "420px", margin: "0 auto", fontSize: "1.25rem", lineHeight: 1.6 }}>
             One platform. Full picture. AI that actually understands Solana.
           </p>
         </div>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: "12px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           {features.map((f) => {
-            const tagClass = f.tagType === "brand" ? "tag" : f.tagType === "accent" ? "tag-accent" : "tag-muted";
+            const tagClass = f.tagType === "brand" ? "pill pill-live" : f.tagType === "accent" ? "pill pill-ai" : "pill pill-soon";
             return (
               <div
                 key={f.title}
-                className="card"
+                className="card-glow p-7"
                 style={{
                   padding: "24px",
                   display: "flex",
@@ -172,15 +172,15 @@ export function FeatureGrid() {
                     style={{
                       fontFamily: "var(--font-syne)",
                       fontWeight: 700,
-                      fontSize: "var(--text-base)",
-                      color: "var(--color-text-primary)",
+                      fontSize: "1.25rem",
+                      color: "var(--text-primary)",
                       marginBottom: "6px",
                       letterSpacing: "-0.01em",
                     }}
                   >
                     {f.title}
                   </h3>
-                  <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-sm)", lineHeight: 1.65 }}>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "8px", lineHeight: 1.65 }}>
                     {f.description}
                   </p>
                 </div>
@@ -202,45 +202,36 @@ export function StatsBar() {
   ];
 
   return (
-    <section style={{ padding: "48px 0" }}>
+    <section style={{ padding: "64px 0", background: "var(--bg-secondary)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
       <div className="max-w-7xl mx-auto px-6">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "1px",
-            background: "var(--color-border)",
-            borderRadius: "var(--radius-lg)",
-            overflow: "hidden",
-            border: "1px solid var(--color-border)",
-          }}
-        >
-          {stats.map((stat) => (
+        <div className="flex justify-center items-center gap-12 flex-wrap">
+          {stats.map((stat, i) => (
+            <>
             <div
               key={stat.label}
               style={{
                 padding: "32px",
                 textAlign: "center",
-                background: "var(--color-surface)",
+                
               }}
-              className="md:col-span-1"
+              
             >
               <p
                 style={{
-                  fontFamily: "var(--font-syne)",
-                  fontSize: "var(--text-2xl)",
-                  fontWeight: 800,
-                  color: "var(--color-text-primary)",
+                  
+                  color: "var(--text-primary)",
                   letterSpacing: "-0.03em",
                   marginBottom: "4px",
                 }}
               >
-                {stat.value}
+                <span className="stat-number">{stat.value}</span>
               </p>
-              <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-sm)" }}>
+              <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
                 {stat.label}
               </p>
             </div>
+            {i < stats.length - 1 && <span style={{ width: "1px", height: "40px", background: "var(--border)" }} />}
+            </>
           ))}
         </div>
       </div>

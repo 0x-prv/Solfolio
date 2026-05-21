@@ -4,7 +4,7 @@ import { DashboardContent } from "@/components/portfolio/DashboardContent";
 
 export default function DashboardPage() {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen" style={{ background: "var(--bg-primary)" }}>
       <AnimatedBackground />
       <Navbar />
       <div className="relative z-10 pt-24 pb-16">
