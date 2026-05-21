@@ -5,13 +5,13 @@ const RPC_URL =
 
 export const connection = new Connection(RPC_URL, "confirmed");
 
-export async function getSolBalance(publicKey: PublicKey): Promise<number> {
-  const balance = await connection.getBalance(publicKey);
+export async function getSolBalance(publicKey: PublicKey, activeConnection: Connection = connection): Promise<number> {
+  const balance = await activeConnection.getBalance(publicKey);
   return balance / LAMPORTS_PER_SOL;
 }
 
-export async function getTokenAccounts(publicKey: PublicKey) {
-  const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
+export async function getTokenAccounts(publicKey: PublicKey, activeConnection: Connection = connection) {
+  const tokenAccounts = await activeConnection.getParsedTokenAccountsByOwner(
     publicKey,
     { programId: new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA") }
   );
@@ -29,8 +29,8 @@ export async function getTokenAccounts(publicKey: PublicKey) {
     .filter((t) => t.amount > 0);
 }
 
-export async function getRecentTransactions(publicKey: PublicKey, limit = 10) {
-  const signatures = await connection.getSignaturesForAddress(publicKey, {
+export async function getRecentTransactions(publicKey: PublicKey, limit = 10, activeConnection: Connection = connection) {
+  const signatures = await activeConnection.getSignaturesForAddress(publicKey, {
     limit,
   });
 

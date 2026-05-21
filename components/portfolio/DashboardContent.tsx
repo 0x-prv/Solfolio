@@ -1,15 +1,13 @@
 "use client";
 
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import {
   getSolBalance,
   getTokenAccounts,
   getRecentTransactions,
   shortenAddress,
-  formatUSD,
-  formatNumber,
+  formatUSD
 } from "@/lib/solana";
 import { calculateGrindScore, GrindScoreData } from "@/lib/grindScore";
 import { WalletButton } from "@/components/wallet/WalletButton";
@@ -17,6 +15,8 @@ import { GrindScoreCard } from "@/components/portfolio/GrindScoreCard";
 import { TokenList } from "@/components/portfolio/TokenList";
 import { NFTGrid } from "@/components/portfolio/NFTGrid";
 import { ActivityFeed } from "@/components/portfolio/ActivityFeed";
+import { AgentOpsPanel } from "@/components/portfolio/AgentOpsPanel";
+import { generateAgentReport, PortfolioAsset } from "@/lib/agentEngine";
 
 const KNOWN_TOKENS: Record<string, { name: string; symbol: string; price: number; color: string }> = {
   "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": { name: "USD Coin",   symbol: "USDC",  price: 1.0,       color: "#2775CA" },
@@ -79,11 +79,10 @@ function ShieldIcon() {
 export function DashboardContent() {
   const { publicKey, connected } = useWallet();
   const { connection } = useConnection();
-  const router = useRouter();
 
   const [solBalance, setSolBalance] = useState<number>(0);
-  const [tokens, setTokens] = useState<any[]>([]);
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [tokens, setTokens] = useState<Array<{ mint: string; amount: number; decimals: number; address: string; name: string; symbol: string; price: number; color: string; usdValue: number }>>([]);
+  const [transactions, setTransactions] = useState<Array<{ signature: string; slot: number; blockTime: number | null | undefined; err: object | null; memo: string | null | undefined }>>([]);
   const [grindScore, setGrindScore] = useState<GrindScoreData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -99,9 +98,9 @@ export function DashboardContent() {
       setError(null);
       try {
         const [balance, tokenAccounts, txs] = await Promise.all([
-          getSolBalance(publicKey),
-          getTokenAccounts(publicKey),
-          getRecentTransactions(publicKey, 8),
+          getSolBalance(publicKey, connection),
+          getTokenAccounts(publicKey, connection),
+          getRecentTransactions(publicKey, 8, connection),
         ]);
         setSolBalance(balance);
         const enrichedTokens = tokenAccounts
@@ -174,6 +173,23 @@ export function DashboardContent() {
   }
 
   const totalUSD = solBalance * SOL_PRICE + tokens.reduce((s, t) => s + t.usdValue, 0);
+
+
+  const agentReport = useMemo(() => {
+    const allAssets: PortfolioAsset[] = [
+      { symbol: "SOL", usdValue: solBalance * SOL_PRICE, allocationPct: 0, volatilityBand: "medium" },
+      ...tokens.map((t) => ({
+        symbol: t.symbol,
+        usdValue: t.usdValue,
+        allocationPct: 0,
+        volatilityBand: t.symbol === "USDC" || t.symbol === "USDT" ? "low" as const : "high" as const,
+      })),
+    ];
+
+    const total = allAssets.reduce((sum, a) => sum + a.usdValue, 0);
+    const normalized = allAssets.map((a) => ({ ...a, allocationPct: total > 0 ? (a.usdValue / total) * 100 : 0 }));
+    return generateAgentReport(normalized, transactions.length);
+  }, [solBalance, tokens, transactions.length]);
 
   const statCards = [
     { label: "Total Portfolio", value: loading ? "—" : formatUSD(totalUSD), sub: "USD value",    Icon: BriefcaseIcon, highlight: true },
@@ -354,6 +370,7 @@ export function DashboardContent() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }} className="lg:col-span-2">
           <TokenList tokens={tokens} solBalance={solBalance} solPrice={SOL_PRICE} loading={loading} />
           <ActivityFeed transactions={transactions} loading={loading} />
+          <AgentOpsPanel report={agentReport} loading={loading} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {grindScore && <GrindScoreCard data={grindScore} />}
