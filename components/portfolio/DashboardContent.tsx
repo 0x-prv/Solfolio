@@ -11,6 +11,7 @@ import { AgentOpsPanel } from "@/components/portfolio/AgentOpsPanel";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 import { usePortfolioAnalytics } from "@/hooks/portfolio/usePortfolioAnalytics";
 import { SOL_PRICE } from "@/lib/portfolio/constants";
+import { useEffect, useState } from "react";
 
 // Stat card icons
 function BriefcaseIcon() {
@@ -114,6 +115,22 @@ export function DashboardContent() {
     { label: "Tracked Assets", value: loading ? null : tokens.length.toString(), sub: "SPL tokens", Icon: LayersIcon },
     { label: "Grind Score", value: loading ? null : grindScore?.score.toString() || "0", sub: grindScore?.tier || "", Icon: ZapIcon },
   ];
+
+  const [animatedTotal, setAnimatedTotal] = useState(0);
+  useEffect(() => {
+    if (loading) return;
+    const target = Math.max(0, totalUSD);
+    const start = performance.now();
+    const duration = 850;
+    let raf = 0;
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      setAnimatedTotal(target * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [loading, totalUSD]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-5 sm:gap-6">
@@ -261,6 +278,25 @@ export function DashboardContent() {
             )}
           </div>
         ))}
+      </div>
+
+      <div className="card-glow p-5 sm:p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)" }}>Portfolio Trend</p>
+            <p className="metric-value" style={{ color: "var(--color-text-primary)", fontSize: "var(--text-lg)", fontWeight: 700 }}>
+              {loading ? "—" : formatUSD(animatedTotal)}
+            </p>
+          </div>
+          <div className="flex items-center gap-2" style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-xs)" }}>
+            <span className="live-dot" /> Live sync
+          </div>
+        </div>
+        <div style={{ height: 76, display: "flex", alignItems: "flex-end", gap: 5 }}>
+          {[24, 36, 28, 42, 38, 51, 46, 58, 55, 63, 60, 66].map((h, i) => (
+            <div key={i} style={{ flex: 1, borderRadius: 6, height: `${h}px`, background: "linear-gradient(180deg, rgba(139,92,246,0.85), rgba(59,130,246,0.45))", opacity: i > 9 ? 1 : 0.72, transition: "opacity .25s ease" }} />
+          ))}
+        </div>
       </div>
 
       {/* Main content grid */}

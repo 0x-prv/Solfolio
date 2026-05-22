@@ -101,12 +101,12 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div className="skeleton animate-pulse" style={{ width: 32, height: 32, flexShrink: 0 }} />
+              <div className="skeleton-premium" style={{ width: 32, height: 32, flexShrink: 0 }} />
               <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "6px" }}>
-                <div className="skeleton animate-pulse" style={{ height: 11, width: "40%" }} />
-                <div className="skeleton animate-pulse" style={{ height: 9, width: "28%" }} />
+                <div className="skeleton-premium" style={{ height: 11, width: "40%" }} />
+                <div className="skeleton-premium" style={{ height: 9, width: "28%" }} />
               </div>
-              <div className="skeleton animate-pulse" style={{ height: 9, width: 48 }} />
+              <div className="skeleton-premium" style={{ height: 9, width: 48 }} />
             </div>
           ))
         ) : transactions.length === 0 ? (
@@ -118,7 +118,7 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
               fontSize: "var(--text-sm)",
             }}
           >
-            No recent transactions
+            No recent transactions yet. Your next on-chain action will appear here.
           </div>
         ) : (
           transactions.map((tx, i) => {
@@ -134,10 +134,10 @@ export function ActivityFeed({ transactions, loading }: ActivityFeedProps) {
                   alignItems: "center",
                   gap: "12px",
                   borderBottom: i < transactions.length - 1 ? "1px solid var(--color-border)" : "none",
-                  transition: "background var(--transition-fast)",
+                  transition: "background var(--transition-fast), transform var(--transition-fast)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-hover)"; e.currentTarget.style.transform = "translateX(2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0px)"; }}
               >
                 {/* Icon dot */}
                 <div

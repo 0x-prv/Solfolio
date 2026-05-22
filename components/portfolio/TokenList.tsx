@@ -75,14 +75,14 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div className="skeleton animate-pulse" style={{ width: 38, height: 38, borderRadius: "var(--radius-full)", flexShrink: 0 }} />
+              <div className="skeleton-premium" style={{ width: 38, height: 38, borderRadius: "var(--radius-full)", flexShrink: 0 }} />
               <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "7px" }}>
-                <div className="skeleton animate-pulse" style={{ height: 11, width: "35%" }} />
-                <div className="skeleton animate-pulse" style={{ height: 9, width: "55%" }} />
+                <div className="skeleton-premium" style={{ height: 11, width: "35%" }} />
+                <div className="skeleton-premium" style={{ height: 9, width: "55%" }} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "7px", alignItems: "flex-end" }}>
-                <div className="skeleton animate-pulse" style={{ height: 11, width: 56 }} />
-                <div className="skeleton animate-pulse" style={{ height: 9, width: 40 }} />
+                <div className="skeleton-premium" style={{ height: 11, width: 56 }} />
+                <div className="skeleton-premium" style={{ height: 9, width: 40 }} />
               </div>
             </div>
           ))
@@ -95,7 +95,7 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
               fontSize: "var(--text-sm)",
             }}
           >
-            No tokens found in this wallet
+            Wallet connected, but no SPL balances found yet.
           </div>
         ) : (
           allTokens.map((token, i) => {
@@ -109,10 +109,10 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
                   alignItems: "center",
                   gap: "14px",
                   borderBottom: i < allTokens.length - 1 ? "1px solid var(--color-border)" : "none",
-                  transition: "background var(--transition-fast)",
+                  transition: "background var(--transition-fast), transform var(--transition-fast)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-hover)"; e.currentTarget.style.transform = "translateX(2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0px)"; }}
               >
                 {/* Token icon */}
                 <div
@@ -188,7 +188,7 @@ export function TokenList({ tokens, solBalance, solPrice, loading }: TokenListPr
 
                 {/* Balance + USD value */}
                 <div style={{ textAlign: "right", flexShrink: 0 }}>
-                  <p style={{ fontSize: "var(--text-sm)", fontWeight: 600, color: "var(--color-text-primary)" }}>
+                  <p className="metric-value" style={{ fontSize: "var(--text-sm)", fontWeight: 600, color: "var(--color-text-primary)" }}>
                     {token.usdValue > 0 ? formatUSD(token.usdValue) : "—"}
                   </p>
                   <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)", marginTop: "2px" }}>

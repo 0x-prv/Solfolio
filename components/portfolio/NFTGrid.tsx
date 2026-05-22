@@ -67,7 +67,7 @@ export function NFTGrid({ loading }: NFTGridProps) {
           ? Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="skeleton animate-pulse"
+                className="skeleton-premium"
                 style={{ aspectRatio: "1", borderRadius: "var(--radius-md)" }}
               />
             ))
@@ -81,15 +81,17 @@ export function NFTGrid({ loading }: NFTGridProps) {
                   background: "linear-gradient(170deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08))",
                   border: "1px solid rgba(139,92,246,0.25)",
                   cursor: "pointer",
-                  transition: "border-color var(--transition-base), box-shadow var(--transition-base)",
+                  transition: "border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--color-border-strong)";
                   e.currentTarget.style.boxShadow = "var(--shadow-md)";
+                  e.currentTarget.style.transform = "translateY(-3px)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "var(--color-border)";
                   e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.transform = "translateY(0px)";
                 }}
               >
                 {/* Art area */}
@@ -147,7 +149,7 @@ export function NFTGrid({ loading }: NFTGridProps) {
         }}
       >
         <p style={{ color: "var(--color-text-muted)", fontSize: "var(--text-xs)" }}>
-          Live NFT data via Helius API coming soon
+          Live NFT indexing via Helius is warming up for this wallet.
         </p>
       </div>
     </div>
