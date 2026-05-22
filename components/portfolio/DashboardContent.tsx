@@ -7,7 +7,7 @@ import { GrindScoreCard } from "@/components/portfolio/GrindScoreCard";
 import { TokenList } from "@/components/portfolio/TokenList";
 import { NFTGrid } from "@/components/portfolio/NFTGrid";
 import { ActivityFeed } from "@/components/portfolio/ActivityFeed";
-import { AgentOpsPanel } from "@/components/portfolio/AgentOpsPanel";
+import { AIInsightsPanel } from "@/components/portfolio/AIInsightsPanel";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 import { usePortfolioAnalytics } from "@/hooks/portfolio/usePortfolioAnalytics";
 import { SOL_PRICE } from "@/lib/portfolio/constants";
@@ -68,7 +68,7 @@ export function DashboardContent() {
   const { connection } = useConnection();
 
   const { solBalance, tokens, transactions, loading, error } = usePortfolioData(publicKey, connected, connection);
-  const { totalUSD, grindScore, agentReport } = usePortfolioAnalytics(solBalance, tokens, transactions);
+  const { totalUSD, grindScore } = usePortfolioAnalytics(solBalance, tokens, transactions);
 
   const isDisconnected = !connected;
 
@@ -304,7 +304,13 @@ export function DashboardContent() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }} className="xl:col-span-7">
           <TokenList tokens={tokens} solBalance={solBalance} solPrice={SOL_PRICE} loading={loading} />
           <ActivityFeed transactions={transactions} loading={loading} />
-          <AgentOpsPanel report={agentReport} loading={loading} />
+          <AIInsightsPanel
+            loading={loading}
+            totalUSD={totalUSD}
+            solBalance={solBalance}
+            tokens={tokens}
+            transactions={transactions}
+          />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }} className="xl:col-span-5">
           {grindScore && <GrindScoreCard data={grindScore} />}
