@@ -11,7 +11,7 @@ import { AIInsightsPanel } from "@/components/portfolio/AIInsightsPanel";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 import { usePortfolioAnalytics } from "@/hooks/portfolio/usePortfolioAnalytics";
 import { SOL_PRICE } from "@/lib/portfolio/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Stat card icons
 function BriefcaseIcon() {
@@ -72,6 +72,31 @@ export function DashboardContent() {
 
   const isDisconnected = !connected;
 
+  const walletAddressLabel = useMemo(() => (publicKey ? shortenAddress(publicKey.toBase58(), 6) : ""), [publicKey]);
+
+  const statCards = useMemo(() => [
+    { label: "Portfolio Value", value: loading ? null : formatUSD(totalUSD), sub: "Net wallet value", Icon: BriefcaseIcon, highlight: true },
+    { label: "AI Confidence", value: loading ? null : `${Math.min(98, 52 + tokens.length * 3)}%`, sub: "Signal certainty", Icon: SolIcon },
+    { label: "Risk Score", value: loading ? null : `${Math.max(12, 100 - (grindScore?.score || 0))}/100`, sub: "Lower is safer", Icon: AlertIcon },
+    { label: "Wallet Activity", value: loading ? null : transactions.length.toString(), sub: "Recent transactions", Icon: LayersIcon },
+  ], [loading, totalUSD, tokens.length, grindScore?.score, transactions.length]);
+
+  const [animatedTotal, setAnimatedTotal] = useState(0);
+  useEffect(() => {
+    if (isDisconnected || loading) return;
+    const target = Math.max(0, totalUSD);
+    const start = performance.now();
+    const duration = 850;
+    let raf = 0;
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      setAnimatedTotal(target * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isDisconnected, loading, totalUSD]);
+
   if (isDisconnected) {
     return (
       <div
@@ -109,28 +134,6 @@ export function DashboardContent() {
     );
   }
 
-  const statCards = [
-    { label: "Portfolio Value", value: loading ? null : formatUSD(totalUSD), sub: "Net wallet value", Icon: BriefcaseIcon, highlight: true },
-    { label: "AI Confidence", value: loading ? null : `${Math.min(98, 52 + tokens.length * 3)}%`, sub: "Signal certainty", Icon: SolIcon },
-    { label: "Risk Score", value: loading ? null : `${Math.max(12, 100 - (grindScore?.score || 0))}/100`, sub: "Lower is safer", Icon: AlertIcon },
-    { label: "Wallet Activity", value: loading ? null : transactions.length.toString(), sub: "Recent transactions", Icon: LayersIcon },
-  ];
-
-  const [animatedTotal, setAnimatedTotal] = useState(0);
-  useEffect(() => {
-    if (loading) return;
-    const target = Math.max(0, totalUSD);
-    const start = performance.now();
-    const duration = 850;
-    let raf = 0;
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - start) / duration);
-      setAnimatedTotal(target * (1 - Math.pow(1 - progress, 3)));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [loading, totalUSD]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-5 sm:gap-6">
@@ -164,7 +167,7 @@ export function DashboardContent() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              {publicKey ? shortenAddress(publicKey.toBase58(), 6) : ""}
+              {walletAddressLabel}
             </span>
           </div>
           <h1
