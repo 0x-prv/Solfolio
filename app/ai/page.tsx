@@ -1,5 +1,6 @@
 "use client";
 
+ codex/finalize-multi-page-structure-for-solfolio-qc3u1r
 import { useEffect, useState } from "react";
 import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
 import { Navbar } from "@/components/layout/Navbar";
@@ -40,10 +41,23 @@ export default function AIPage() {
     };
   }, []);
 
+import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
+import { Navbar } from "@/components/layout/Navbar";
+import { AIInsightsPanel } from "@/components/portfolio/AIInsightsPanel";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
+
+export default function AIPage() {
+  const { publicKey, connected } = useWallet();
+  const { connection } = useConnection();
+  const { solBalance, tokens, transactions, loading } = usePortfolioData(publicKey, connected, connection);
+premium-dashboard-redesign
+
   return (
     <main className="relative min-h-screen">
       <AnimatedBackground />
       <Navbar />
+ codex/finalize-multi-page-structure-for-solfolio-qc3u1r
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-36 pb-14">
         <h1 className="text-3xl sm:text-4xl font-bold" style={{ fontFamily: "var(--font-syne)" }}>Solana Intelligence Agent</h1>
         <p className="mt-2 text-sm sm:text-base" style={{ color: "var(--color-text-secondary)" }}>
@@ -84,6 +98,14 @@ export default function AIPage() {
             </>
           )}
         </div>
+
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-36 pb-14">
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-syne)" }}>AI Portfolio Intelligence</h1>
+        <p className="mt-2 mb-5 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+          Wallet summary, risk insights, portfolio recommendations, and AI-generated insights.
+        </p>
+        <AIInsightsPanel loading={loading} totalUSD={tokens.reduce((a,t)=>a+t.usdValue,0)+solBalance*155} solBalance={solBalance} tokens={tokens} transactions={transactions} />
+ premium-dashboard-redesign
       </section>
     </main>
   );
