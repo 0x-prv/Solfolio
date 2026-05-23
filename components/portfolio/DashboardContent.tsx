@@ -11,7 +11,7 @@ import { AIInsightsPanel } from "@/components/portfolio/AIInsightsPanel";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 import { usePortfolioAnalytics } from "@/hooks/portfolio/usePortfolioAnalytics";
 import { SOL_PRICE } from "@/lib/portfolio/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Stat card icons
 function BriefcaseIcon() {
@@ -72,6 +72,18 @@ export function DashboardContent() {
 
   const isDisconnected = !connected;
 
+ codex/fix-react-runtime-error-#310-y9x3ku
+  const walletAddressLabel = useMemo(() => (publicKey ? shortenAddress(publicKey.toBase58(), 6) : ""), [publicKey]);
+
+  const statCards = useMemo(() => [
+    { label: "Portfolio Value", value: loading ? null : formatUSD(totalUSD), sub: "Net wallet value", Icon: BriefcaseIcon, highlight: true },
+    { label: "AI Confidence", value: loading ? null : `${Math.min(98, 52 + tokens.length * 3)}%`, sub: "Signal certainty", Icon: SolIcon },
+    { label: "Risk Score", value: loading ? null : `${Math.max(12, 100 - (grindScore?.score || 0))}/100`, sub: "Lower is safer", Icon: AlertIcon },
+    { label: "Wallet Activity", value: loading ? null : transactions.length.toString(), sub: "Recent transactions", Icon: LayersIcon },
+  ], [loading, totalUSD, tokens.length, grindScore?.score, transactions.length]);
+
+
+ premium-dashboard-redesign
   const [animatedTotal, setAnimatedTotal] = useState(0);
   useEffect(() => {
     if (isDisconnected || loading) return;
@@ -125,6 +137,8 @@ export function DashboardContent() {
     );
   }
 
+ codex/fix-react-runtime-error-#310-y9x3ku
+
   const statCards = [
     { label: "Portfolio Value", value: loading ? null : formatUSD(totalUSD), sub: "Net wallet value", Icon: BriefcaseIcon, highlight: true },
     { label: "AI Confidence", value: loading ? null : `${Math.min(98, 52 + tokens.length * 3)}%`, sub: "Signal certainty", Icon: SolIcon },
@@ -132,6 +146,7 @@ export function DashboardContent() {
     { label: "Wallet Activity", value: loading ? null : transactions.length.toString(), sub: "Recent transactions", Icon: LayersIcon },
   ];
 
+ premium-dashboard-redesign
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-5 sm:gap-6">
@@ -165,7 +180,7 @@ export function DashboardContent() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              {publicKey ? shortenAddress(publicKey.toBase58(), 6) : ""}
+              {walletAddressLabel}
             </span>
           </div>
           <h1
