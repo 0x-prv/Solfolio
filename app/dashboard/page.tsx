@@ -1,17 +1,15 @@
 import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
-import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
+import { Navbar } from "@/components/layout/Navbar";
 import { DashboardContent } from "@/components/portfolio/DashboardContent";
 
 export default function DashboardPage() {
   return (
     <main className="relative min-h-screen" style={{ background: "var(--bg-primary)" }}>
       <AnimatedBackground />
-      <div className="relative z-10 dashboard-layout">
-        <DashboardSidebar />
-        <section className="dashboard-main">
-          <DashboardContent />
-        </section>
-      </div>
+      <Navbar />
+      <section className="relative z-10 pt-36 pb-12">
+        <DashboardContent />
+      </section>
     </main>
   );
 }
