@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { WalletButton } from "@/components/wallet/WalletButton";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 
@@ -23,19 +22,8 @@ export function AppShell({ children }: AppShellProps) {
       <div className="sf-content-wrap">
         <header className="sf-topbar glass">
           <button className="sf-menu-btn" type="button" onClick={() => setMobileOpen(true)} aria-label="Open navigation">
-        
           </button>
-          <div className="flex items-center gap-3">
-codex/fix-navigation-and-app-consistency
-            <Image src="/solfoliologo.png" alt="Solfolio mark" width={36} height={36} className="rounded-md" priority />
-            <div className="leading-tight">
-              <p className="text-white font-bold text-base">Solfolio</p>
-              <p className="text-[11px] uppercase tracking-[0.12em] text-white/60 hidden sm:block">Operator network stable</p>
-            </div>
-            <Image src="/solfoliologo.png" alt="Solfolio" width={110} height={30} />
-            <p className="text-xs uppercase tracking-[0.15em] text-white/65 hidden sm:block">Operator network stable</p>
- main
-          </div>
+          <div aria-hidden="true" className="h-9" />
           <WalletButton variant="ghost" />
         </header>
 

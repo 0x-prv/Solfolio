@@ -620,7 +620,7 @@ radial-gradient(circle at 50% 95%, rgba(59,130,246,.18), transparent 42%); }
 .sf-content-wrap { padding:8px 8px 24px 0; }
 .sf-bg-glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 10%, rgba(247,149,55,.18), transparent 36%), radial-gradient(circle at 85% 20%, rgba(168,85,247,.2), transparent 32%), radial-gradient(circle at 50% 90%, rgba(56,189,248,.12), transparent 36%);z-index:-1;}
 .dashboard-sidebar{position:sticky;top:20px;height:calc(100vh - 40px);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:18px;background:linear-gradient(175deg, rgba(21,23,56,.9), rgba(10,11,28,.85));box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)}
-.sidebar-brand{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-brand{padding:8px 8px 16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:center}
 .sidebar-subtitle{margin-top:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c8c7e8b3}
 .sidebar-nav{display:flex;flex-direction:column;gap:8px}
 .sidebar-link{display:block;padding:11px 12px;border-radius:12px;color:#cfd3ffb8;text-decoration:none;border:1px solid transparent}
@@ -639,7 +639,7 @@ radial-gradient(circle at 50% 95%, rgba(59,130,246,.18), transparent 42%); }
 /* Unified shell nav consistency patch */
 .sf-shell { position: relative; z-index: 1; }
 .sf-sidebar-desktop { display: block; }
-.sf-topbar { position: sticky; top: 14px; z-index: 10; border-radius: 16px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.sf-topbar { position: sticky; top: 14px; z-index: 10; border-radius: 16px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; min-height: 56px; }
 .sf-menu-btn { display: none; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 6px 10px; background: rgba(255,255,255,.06); }
 .sf-drawer-wrap { position: fixed; inset: 0; z-index: 60; }
 .sf-drawer-backdrop { position: absolute; inset: 0; background: rgba(3,4,12,.68); }
