@@ -83,7 +83,7 @@ export default function AIPage() {
       const data = await fetchSolanaIntelFeed();
       setFeed(data);
     } catch {
-      setError("Unable to load Solana Intelligence feed right now.");
+      setError("Unable to load AI Agent intelligence feed right now.");
     } finally {
       setIsLoading(false);
     }
@@ -108,9 +108,9 @@ export default function AIPage() {
 
       <section className="relative z-10 mx-auto max-w-6xl px-4 pb-14 pt-32 sm:px-6">
         <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-slate-900/80 to-black/40 p-8 shadow-[0_30px_120px_rgba(8,8,20,0.45)] backdrop-blur-xl sm:p-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/90">Solfolio AI</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/90">Solfolio AI Agent</p>
           <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl" style={{ fontFamily: "var(--font-syne)" }}>
-            Solana Intelligence Agent
+            AI Agent Command Center
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-6 sm:text-base" style={{ color: "var(--color-text-secondary)" }}>
             Monitor Solana market news, ecosystem momentum, NFT activity, DeFi/token trends, and protocol risk alerts in one premium intelligence surface.
