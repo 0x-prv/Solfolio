@@ -19,18 +19,7 @@ export function DashboardSidebar({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <aside className="dashboard-sidebar glass">
       <div className="sidebar-brand">
- codex/fix-navigation-and-app-consistency
-        <div className="flex items-center gap-3">
-          <Image src="/solfoliologo.png" alt="Solfolio mark" width={36} height={36} className="rounded-md" priority />
-          <div>
-            <p className="text-white font-bold text-lg leading-none">Solfolio</p>
-            <p className="sidebar-subtitle">Premium Solana Command System</p>
-          </div>
-        </div>
-
-        <Image src="/solfoliologo.png" alt="Solfolio" width={152} height={42} priority />
-        <p className="sidebar-subtitle">Premium Solana Command System</p>
-main
+        <Image src="/solfolio.png" alt="Solfolio" width={152} height={42} priority />
       </div>
 
       <nav className="sidebar-nav">
