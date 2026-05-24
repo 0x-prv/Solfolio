@@ -47,7 +47,7 @@ export function DashboardContent() {
       <section className="sf-panel sf-hero">
         <div>
           <p className="sf-kicker"><Bullet /> Live Portfolio Command</p>
-          <h1>Solfolio Web3 Intelligence Dashboard</h1>
+          <h1>Solfolio Operator Cockpit Dashboard</h1>
           <p className="sf-sub">Track tokens, activity, and AI-driven risk posture with a premium Solana-first operator cockpit.</p>
         </div>
         <div className="sf-hero-metrics">
@@ -83,7 +83,7 @@ export function DashboardContent() {
       </section>
 
       <section className="sf-panel xl:col-span-12">
-        <p className="sf-kicker"><Bullet /> AI Insights</p>
+        <p className="sf-kicker"><Bullet /> AI Agent</p>
         <AIInsightsPanel loading={loading} totalUSD={totalUSD} solBalance={solBalance} tokens={tokens} transactions={transactions} />
       </section>
     </div>
