@@ -18,7 +18,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 pt-4">
       <div className="glass border rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-        <p className="text-xs tracking-[0.25em] uppercase text-white/70">Solfolio Command</p>
+        <p className="text-white font-bold tracking-tight">Solfolio</p>
         <nav className="hidden lg:flex items-center gap-2">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="top-nav-link" data-active={pathname === link.href}>
